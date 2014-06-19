@@ -89,6 +89,7 @@ function rotateElement(event) {
 
 function startRotate(event) {
     elementBeingRotated = $(this).parent(); 
+    elementBeingRotated.trigger('rotateStart', event);
     var center = getElementCenter(elementBeingRotated);
     var startXFromCenter = event.pageX - center[0];
     var startYFromCenter = event.pageY - center[1];
@@ -103,6 +104,7 @@ function startRotate(event) {
 function stopRotate(event) {
     if (!elementBeingRotated) return;
     $(document).unbind('mousemove');
+    elementBeingRotated.trigger('rotateEnd', event);
     setTimeout( function() { elementBeingRotated = false; }, 10 );
     return false;
 };
